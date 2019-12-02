@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:48:40 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/11/29 11:47:58 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:08:44 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,35 +51,36 @@ int			load_textures(data_t *data)
 }
 */
 
-static void		parse2_texture(char *line, char *texture)
+static char		*parse2_texture(char *line)
 {
 	int			i;
 	int			j;
 	char		buffer[400];
-	data_t		data;
+	char		*dest;
 
 	i = 0;
 	j = 0;
 	while (line[i] == ' ' || line[i] == 'O' || line[i] == 'N' ||
 		line[i] == 'S' || line[i] == 'W' || line[i] == 'E' || line[i] == 'A')
 		i++;
-	while (line[i] != '\n')
-		buffer[j] = line[i];
-	ft_strjoin(buffer, data.texture.no);
+	while (line[i] != '\0')
+		buffer[j++] = line[i++];
+	buffer[j] = '\0';
+	dest = ft_strdup(buffer);
+	return (dest);
 }
 
-void	parse_texture(char *line)
+data_t	parse_texture(char *line, data_t data)
 {
-	data_t		data;
-
 	if (line[0] == 'N')
-		parse2_texture(line, data.texture.no);
+		data.texture.no = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == 'O')
-		parse2_texture(line, data.texture.so);
+		data.texture.so = parse2_texture(line);
 	else if (line[0] == 'W')
-		parse2_texture(line, data.texture.we);
+		data.texture.we = parse2_texture(line);
 	else if (line[0] == 'E')
-		parse2_texture(line, data.texture.ea);
+		data.texture.ea = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == ' ')
-		parse2_texture(line, data.texture.s);
+		data.texture.s = parse2_texture(line);
+	return (data);
 }

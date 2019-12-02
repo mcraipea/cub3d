@@ -6,27 +6,36 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/11/29 15:29:04 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:49:11 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
-static int	hook_close(data_t *data)
+/*static int	hook_close(data_t *data)
 {
 	(void)data;
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-
-int main(int argc, char **argv)
+*/
+int main(void)
 {
 	data_t		data;
 	int			fd;
 
-	(void)argc;
-	fd = open("map.txt", O_RDONLY);
-	//read_map(fd);
+	fd = 0;
+	//printf("%i\n", argc);
+	fd = open("/Users/mcraipea/CUB3D/mcraipea/cub3d/carto.cub", O_RDONLY);
+	data.map.height = 0;
+	data = read_map(fd, data);
+	printf("%i\n", data.map.width);
+	printf("%i\n", data.map.height);
+	printf("%s\n", data.texture.s);
+	printf("%i\n", data.color.rgba.a);
+	printf("%i\n", data.map.values[0][1]);
+	//printf("%i\n", fd);
 	data.pixel.y = 0;
 	data.pixel.x = 100;
 	/*if ((data.mlx_ptr = mlx_init()) == NULL)

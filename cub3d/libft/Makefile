@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/21 01:17:21 by mcraipea          #+#    #+#              #
-#    Updated: 2019/11/27 17:13:04 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/02 13:55:46 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ AR =	ar
 
 HEADERS =	./includes
 
-CFLAGS =	-Wall -Wextra -Werror -I $(HEADERS)
+CFLAGS =	-g -Wall -Wextra -Werror -I $(HEADERS)
 
 SRCS =	$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

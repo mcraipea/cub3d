@@ -6,13 +6,14 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/11/29 15:06:41 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:13:01 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -93,12 +94,13 @@ typedef struct    	data_s
 	t_pixel			pixel;
 	t_player		player;
 	t_map			map;
+	t_color			color;
 }                	data_t;
 
 int			hook_keydown(int key, data_t data);
 int			get_tile(t_map *map, int x, int y);
-void		read_map(int fd);
-void		parse_texture(char *line);
-void		parse_couleur(char *line);
+data_t		read_map(int fd, data_t data);
+data_t		parse_texture(char *line, data_t data);
+data_t		parse_couleur(char *line, data_t data);
 
 #endif

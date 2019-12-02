@@ -6,56 +6,56 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 12:00:28 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/11/29 12:47:28 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:12:38 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	number(char *line, int i)
+static int		ft_atoi_parse(char *line, int i)
 {
-	int		number;
 	int		j;
+	int		number;
+	char	buffer[20];
 
-	number = 0;
-	j = 1;
-	while (line[i] >= 0 && line[i] <= 9)
-	{
-		number = number * j + line[i];
-		j *= 10;
-	}
+	j = 0;
+	ft_bzero(buffer, 20);
+	while (line[i] >= '0' && line[i] <= '9')
+		buffer[j++] = line[i++];
+	buffer[j] = '\0';
+	number = ft_atoi(buffer);
 	return (number);
 }
 
-void		parse_couleur(char *line)
+data_t			parse_couleur(char *line, data_t data)
 {
 	int			i;
-	t_color		color;
 	
 	i = 0;
-	color.rgba.a = 0;
+	data.color.rgba.a = 0;
 	if (line[i++] == 'F')
 	{
 		while (line[i] == ' ')
 			i++;
-		color.rgba.r = number(line, i);
-		while (line[i] >= 0 && line[i] <= 9 && line[i] != ',')
+		data.color.rgba.r = ft_atoi_parse(line, i);
+		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
 			i++;
-		color.rgba.g = number(line, i + 1);
-		while (line[i] >= 0 && line[i] <= 9 && line[i] != ',')
+		data.color.rgba.g = ft_atoi_parse(line, i + 1);
+		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
 			i++;
-		color.rgba.b = number(line, i + 1);
+		data.color.rgba.b = ft_atoi_parse(line, i + 1);
 	}
 	else if (line[i++] == 'C')
 	{
 		while (line[i] == ' ')
 			i++;
-		color.rgba.r = number(line, i);
-		while (line[i] >= 0 && line[i] <= 9 && line[i] != ',')
+		data.color.rgba.r = ft_atoi_parse(line, i);
+		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
 			i++;
-		color.rgba.g = number(line, i + 1);
-		while (line[i] >= 0 && line[i] <= 9 && line[i] != ',')
+		data.color.rgba.g = ft_atoi_parse(line, i + 1);
+		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
 			i++;
-		color.rgba.b = number(line, i + 1);
+		data.color.rgba.b = ft_atoi_parse(line, i + 1);
 	}
+	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 15:43:37 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:18:12 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ typedef struct		s_mlx
 }					t_mlx;
 
 int			hook_keydown(int key, t_mlx *data);
-int			get_tile(t_map *map, int x, int y);
 void		read_map(char *argv, t_mlx *data);
 t_mlx		*parse_texture(char *line, t_mlx *data);
 t_mlx		*parse_couleur(char *line, t_mlx *data);

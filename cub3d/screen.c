@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 21:24:52 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 15:17:10 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:40:22 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int height
 	}
 }
 
-/*static void		draw_floor(t_mlx *data, t_ray *ray, int x, int y)
+static void		draw_floor(t_mlx *data, t_ray *ray, int x, int y)
 {
 	float	cur;
 	float	weight;
@@ -101,7 +101,7 @@ void			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int height
 		image_set_pixel(data->image, x, data->height_img - y, clerp(c(0x0), get_pixel(data->ceiling, fx, fy), 1.0f - cur / VIEW_DIST).value);
 		y++;
 	}
-}*/
+}
 
 static void		draw_column(t_mlx *data, t_ray *ray, int x)
 {
@@ -124,27 +124,26 @@ static void		draw_column(t_mlx *data, t_ray *ray, int x)
 		tex_y = ((y - data->height_img * 0.5f + ray->height * 0.5f) * ray->texture->height) / ray->height;
 		image_set_pixel(data->image, x, y++, clerp(c(0x0), get_pixel(ray->texture, ray->tex_x, tex_y), ray->light).value);
 	}
-//	draw_floor(data, ray, x, y);
+	draw_floor(data, ray, x, y);
 }
 
 void		camera(t_mlx *data)
 {
 	int			x;
 	t_ray		ray;
-	float		camera;
+	float		cam;
 
-	camera = 0.f;
+	cam = 0.0f;
 	clear_image(data->image);
 	x = 0;
 	while (x < data->width_img)
 	{
-		camera = 2.0f * x / data->width_img - 1.0f;
-		ray.x = data->player.d.x + data->player.p.x * camera;
-		ray.y = data->player.d.y + data->player.p.y * camera;
+		cam = (float)(2.0f * x / data->width_img - 1.0f);
+		ray.x = data->player.d.x + data->player.p.x * cam;
+		ray.y = data->player.d.y + data->player.p.y * cam;
 		cast(&ray, data->map, &data->player, data->tex, data->height_img);
 		draw_column(data, &ray, x);
 		x++;
 	}
-	draw_minimap(data);
 	mlx_put_image_to_window(data->mlx, data->window, data->image->image, 0, 0);
 }

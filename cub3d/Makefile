@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/02 13:30:34 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/05 20:32:54 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/06 16:27:44 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC = main.c \
 	image.c \
 	get_position.c \
 	keyboard.c \
-	draw_minimap.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:41:58 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/05 21:02:26 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:23:52 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static t_mlx		*parse_resolution(char *line, t_mlx *data)
 	while (line[i] >= '0' && line[i] <= '9')
 		buffer[j++] = line[i++];
 	buffer[j] = '\0';
-	data->width_img = ft_atoi(buffer);
+	if ((data->width_img = ft_atoi(buffer)) > 2560)
+		data->width_img = 2560;
 	while (line[i] == ' ')
 		i++;
 	ft_bzero(buffer, 20);
@@ -34,7 +35,8 @@ static t_mlx		*parse_resolution(char *line, t_mlx *data)
 	while (line[i] >= '0' && line[i] <= '9')
 		buffer[j++] = line[i++];
 	buffer[j] = '\0';
-	data->height_img = ft_atoi(buffer);
+	if ((data->height_img = ft_atoi(buffer)) > 1440)
+		data->height_img = 1440;
 	return (data);
 }
 
@@ -63,30 +65,6 @@ static void		*cleanup(t_list *lst, t_map *map)
 		ft_memdel((void **)&map);
 	}
 	return (NULL);
-}
-
-static t_list	*get_lines(int fd)
-{
-	static int	expected = -1;
-	t_list		*lst;
-	t_list		*temp;
-	char		*line;
-	int			ret;
-
-	lst = NULL;
-	while ((ret = get_next_line(fd, &line)))
-	{
-		if (expected == -1)
-			expected = ft_countwords(line, ' ');
-		if (expected == 0 || ft_countwords(line, ' ') != expected || (temp = ft_lstnew(line, (ft_strlen(line)) + sizeof(char))) == NULL)
-			return (cleanup(lst, NULL));
-		ft_strdel(&line);
-		ft_lstadd_front(&lst, temp);
-	}
-	if (ret == -1)
-		return (cleanup(lst, NULL));
-	ft_lstrev(&lst);
-	return (lst);
 }
 
 static t_mlx	*new_map(int w, int h, t_mlx *data)
@@ -147,12 +125,16 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 
 void		read_map(char *argv, t_mlx *data)
 {
-	int		i;
-	int		fd;
-	char	*line;
-	t_list	*lst;
+	static int		size_ligne;
+	int				t;
+	int				i;
+	int				fd;
+	char			*line;
+	t_list			*temp;
+	t_list			*lst;
 
 	i = 0;
+	t = 1;
 	fd = open(argv, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{
@@ -174,10 +156,20 @@ void		read_map(char *argv, t_mlx *data)
 			parse_couleur(line, data);
 		else if (line[0] == '1')
 		{
-			lst = get_lines(fd);
-			new_map(ft_countwords((char *)lst->content, ' '), ft_lstcount(lst), data);
-			remplir_map(data, lst);
+			if (t == 1)
+			{
+				size_ligne = ft_countwords(line, ' ');
+				t++;
+			}
+			if (ft_countwords(line, ' ') != size_ligne)
+				error("error : wrong map");
+			temp = ft_lstnew(line, ft_strlen(line) + sizeof(char));
+			ft_strdel(&line);
+			ft_lstadd_front(&lst, temp);
 		}
 	}
+	ft_lstrev(&lst);
+	new_map(ft_countwords((char *)lst->content, ' '), ft_lstcount(lst), data);
+	remplir_map(data, lst);
 	close(fd);
 }

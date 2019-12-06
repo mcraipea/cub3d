@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/02 13:30:34 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/02 13:55:27 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/05 20:32:54 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,20 @@ CC = gcc
 NAME = cub3d
 
 SRC = main.c \
-	keyboard.c \
+	player.c \
+	mlx_screen.c \
 	map.c \
 	texture.c \
 	color.c \
+	screen.c \
+	image.c \
+	get_position.c \
+	keyboard.c \
+	draw_minimap.c \
 
 OBJ = $(SRC:.c=.o)
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Ofast -fsanitize=address -Wall -Wextra -Werror
 
 LDFLAGS = -lmlx -framework OpenGL -framework AppKit
 

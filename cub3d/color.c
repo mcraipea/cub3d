@@ -6,11 +6,35 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 12:00:28 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/02 16:12:38 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:58:12 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int		ft_lerpi(int first, int second, double p)
+{
+	if (first == second)
+		return (first);
+	return ((int)((double)first + (second - first) * p));
+}
+
+t_color		clerp(t_color c1, t_color c2, double p)
+{
+	t_color c;
+
+	if (c1.value == c2.value)
+		return (c1);
+	if (p < 0.0f)
+		p = 0.0f;
+	if (p > 1.0f)
+		p = 1.0f;
+	c.rgba.r = (char)ft_lerpi((int)c1.rgba.r, (int)c2.rgba.r, p);
+	c.rgba.g = (char)ft_lerpi((int)c1.rgba.g, (int)c2.rgba.g, p);
+	c.rgba.b = (char)ft_lerpi((int)c1.rgba.b, (int)c2.rgba.b, p);
+	c.rgba.a = (char)0x00;
+	return (c);
+}
 
 static int		ft_atoi_parse(char *line, int i)
 {
@@ -27,35 +51,28 @@ static int		ft_atoi_parse(char *line, int i)
 	return (number);
 }
 
-data_t			parse_couleur(char *line, data_t data)
+t_mlx			*parse_couleur(char *line, t_mlx *data)
 {
 	int			i;
 	
 	i = 0;
-	data.color.rgba.a = 0;
-	if (line[i++] == 'F')
+	data->sol.rgba.a = 0;
+	if (line[i] == 'F')
 	{
+		i++;
 		while (line[i] == ' ')
 			i++;
-		data.color.rgba.r = ft_atoi_parse(line, i);
-		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
-			i++;
-		data.color.rgba.g = ft_atoi_parse(line, i + 1);
-		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
-			i++;
-		data.color.rgba.b = ft_atoi_parse(line, i + 1);
+		data->sol.rgba.r = ft_atoi_parse(line, i);
+		data->sol.rgba.g = ft_atoi_parse(line, i + 4);
+		data->sol.rgba.b = ft_atoi_parse(line, i + 7);
 	}
 	else if (line[i++] == 'C')
 	{
 		while (line[i] == ' ')
 			i++;
-		data.color.rgba.r = ft_atoi_parse(line, i);
-		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
-			i++;
-		data.color.rgba.g = ft_atoi_parse(line, i + 1);
-		while (line[i] >= '0' && line[i] <= '9' && line[i] != ',')
-			i++;
-		data.color.rgba.b = ft_atoi_parse(line, i + 1);
+		data->plafond.rgba.r = ft_atoi_parse(line, i);
+		data->plafond.rgba.g = ft_atoi_parse(line, i + 4);
+		data->plafond.rgba.b = ft_atoi_parse(line, i + 7);
 	}
 	return (data);
 }

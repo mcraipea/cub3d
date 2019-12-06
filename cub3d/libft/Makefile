@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/21 01:17:21 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/02 13:55:46 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/03 17:32:57 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,11 @@ SRCS_NAME = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 			ft_strmapi.c ft_strchr_gnl.c ft_strnjoin_gnl.c get_next_line.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-			ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c \
+			ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_strsub.c \
 			ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstiter_bonus.c \
-			ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c \
-			ft_lstsize_bonus.c \
+			ft_lstlast_bonus.c ft_lstnew_bonus.c ft_strsplit.c ft_strnew.c\
+			ft_lstsize_bonus.c ft_countwords.c ft_memdel.c ft_strdel.c \
+			ft_lstrev.c ft_memalloc.c ft_lstcount.c ft_splitdel.c \
 
 AR =	ar
 

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:34:38 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/11/29 12:48:46 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:32:45 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct		s_list
 {
 	void			*content;
+	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
 
@@ -62,12 +63,21 @@ void				ft_lstadd_front(t_list **alst, t_list *new);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
-t_list				*ft_lstmap(t_list *lst, void *(*f)(void *));
 int					ft_lstsize(t_list *lst);
-t_list				*ft_lstnew(void *content);
+t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstlast(t_list *lst);
 int					get_next_line(int fd, char **line);
 char				*ft_strnjoin_gnl(char const *s1, char const *s2, unsigned int n);
 int					ft_strchr_gnl(char *s, char c);
+int					ft_countwords(char *str, char sep);
+void				ft_memdel(void **ap);
+void				ft_strdel(char **as);
+void				ft_lstrev(t_list **alst);
+void				*ft_memalloc(size_t size);
+size_t				ft_lstcount(t_list *lst);
+int					ft_splitdel(char ***split);
+char				**ft_strsplit(char const *s, char c);
+char				*ft_strsub(char const *s, unsigned int start, size_t len);
+char				*ft_strnew(size_t size);
 
 #endif

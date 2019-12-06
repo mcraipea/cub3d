@@ -6,59 +6,45 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/02 16:49:11 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:38:52 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <stdio.h>
 
-/*static int	hook_close(data_t *data)
+static int	hook_close(t_mlx *mlx)
 {
-	(void)data;
+	(void)mlx;
 	exit(EXIT_SUCCESS);
 	return (0);
 }
-*/
-int main(void)
-{
-	data_t		data;
-	int			fd;
 
-	fd = 0;
-	//printf("%i\n", argc);
-	fd = open("/Users/mcraipea/CUB3D/mcraipea/cub3d/carto.cub", O_RDONLY);
-	data.map.height = 0;
-	data = read_map(fd, data);
-	printf("%i\n", data.map.width);
-	printf("%i\n", data.map.height);
-	printf("%s\n", data.texture.s);
-	printf("%i\n", data.color.rgba.a);
-	printf("%i\n", data.map.values[0][1]);
-	//printf("%i\n", fd);
-	data.pixel.y = 0;
-	data.pixel.x = 100;
-	/*if ((data.mlx_ptr = mlx_init()) == NULL)
-        	return (EXIT_FAILURE);
-    	if ((data.mlx_win = mlx_new_window(data.mlx_ptr, data.map.width, data.map.height, "mon Hello world")) == NULL)
-        	return (EXIT_FAILURE);
-    	if ((data.img_ptr = mlx_new_image(data.mlx_ptr, data.map.width, data.map.height)) == NULL)
-		return(EXIT_FAILURE);
-	data.param_img = (unsigned int *)mlx_get_data_addr(data.img_ptr, &data.bits, &data.size_line, &data.endian);
-	while (data.pixel.x < 120)
-	{
-		data.pixel.y = 0;
-		while (data.pixel.y < data.map.height)
-  		{
-			data.param_img[(data.pixel.x) + (data.map.height * data.pixel.y)] = 579200;
-			data.pixel.y++;
-		}
-		data.pixel.x++;
-	}
-	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img_ptr, 0, 0);
-	mlx_hook(data.mlx_win, 2, 1L << 0, hook_keydown, &data);
-	mlx_hook(data.mlx_win, 17, 1L << 0, hook_close, &data);
-	mlx_destroy_image(data.mlx_ptr, data.img_ptr);
-	mlx_loop(data.mlx_ptr);*/
+int	error(char *str)
+{
+	ft_putstr_fd(str, 1);
+	exit(EXIT_FAILURE);
+	return (1);
+}
+
+
+int main(int argc, char **argv)
+{
+	t_mlx		data;
+	//t_map		*map;
+
+	if (argc != 2)
+		return (error("error\nexample: ./cub3d [mapfile]"));
+	//if (!(data = malloc(sizeof(t_mlx))))
+	//	return (error("error\nmalloc doesn't works for data"));
+	read_map(argv[1], &data);
+	init(&data);
+//	if (load_textures(&data) == 1)
+//		return (error("error: couldn't load textures"));
+	init_position(&data.player);
+	camera(&data);
+	mlx_hook(data.window, 2, 1L << 0, hook_keydown, &data);
+	mlx_hook(data.window, 17, 1L << 0, hook_close, &data);
+	mlx_loop(&data.mlx);
 	return (EXIT_SUCCESS);
 }

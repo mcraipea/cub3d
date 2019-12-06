@@ -6,41 +6,41 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:48:40 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/02 16:08:44 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 15:09:07 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stddef.h>
-/*
-static void	free_textures(data_t *data)
+
+static void	free_textures(t_mlx *mlx)
 {
 	int i;
 
 	i = 0;
-	while (i < 20)
-		del_image(data, data->tex[i++]);
+	while (i < TEX_MAP_SIZE)
+		del_image(mlx, mlx->tex[i++]);
 }
 
-int			load_textures(data_t *data)
+int			load_textures(t_mlx *mlx)
 {
-	static char		*map[20] = { "brick.xpm", "wood.xpm", "metal.xpm", "stone.xpm", "grass.xpm", NULL };
-	void			*img_ptr;
-	int				i;
-	char			*texture;
+	static char	*map[TEX_MAP_SIZE] = { "brick.xpm", "wood.xpm", "metal.xpm",
+		"stone.xpm", "grass.xpm", NULL };
+	t_image		*img;
+	int			i;
+	char		*t;
 
 	i = 1;
-	while (i < 20 && map[i - 1])
+	while (i < TEX_MAP_SIZE && map[i - 1])
 	{
-		texture = ft_strjoin(("textures/", map[i - 1]);
-		if ((img_ptr = xpm_image(texture, data)) == NULL)
+		t = ft_strjoin("textures/", map[i - 1]);
+		if ((img = xpm_image(t, mlx)) == NULL)
 		{
-			ft_strdel(&texture);
-			free_textures(data);
+			ft_strdel(&t);
+			free_textures(mlx);
 			return (1);
 		}
-		ft_strdel(&texture);
-		data->tex[i] = img_ptr;
+		ft_strdel(&t);
+		mlx->tex[i] = img;
 		i++;
 	}
 	mlx->max_tex = i - 1;
@@ -49,7 +49,6 @@ int			load_textures(data_t *data)
 	mlx->ceiling = mlx->tex[4];
 	return (0);
 }
-*/
 
 static char		*parse2_texture(char *line)
 {
@@ -70,17 +69,17 @@ static char		*parse2_texture(char *line)
 	return (dest);
 }
 
-data_t	parse_texture(char *line, data_t data)
+t_mlx	*parse_texture(char *line, t_mlx *data)
 {
 	if (line[0] == 'N')
-		data.texture.no = parse2_texture(line);
+		data->texture.no = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == 'O')
-		data.texture.so = parse2_texture(line);
+		data->texture.so = parse2_texture(line);
 	else if (line[0] == 'W')
-		data.texture.we = parse2_texture(line);
+		data->texture.we = parse2_texture(line);
 	else if (line[0] == 'E')
-		data.texture.ea = parse2_texture(line);
+		data->texture.ea = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == ' ')
-		data.texture.s = parse2_texture(line);
+		data->texture.s = parse2_texture(line);
 	return (data);
 }

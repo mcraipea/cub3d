@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 15:38:52 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:56:06 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int main(int argc, char **argv)
 	//	return (error("error\nmalloc doesn't works for data"));
 	read_map(argv[1], &data);
 	init(&data);
-//	if (load_textures(&data) == 1)
-//		return (error("error: couldn't load textures"));
+	if (load_textures(&data) == 1)
+		return (error("error: couldn't load textures"));
 	init_position(&data.player);
 	camera(&data);
 	mlx_hook(data.window, 2, 1L << 0, hook_keydown, &data);

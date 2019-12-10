@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 16:18:12 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:23:39 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define K_LEFT		123
 # define K_RIGHT	124
 
-# define VIEW_DIST 	10
 # define TEX_MAP_SIZE 20
 
 typedef struct		s_rgba
@@ -92,7 +91,6 @@ typedef struct		s_ray
 	float			y;
 	int				side;
 	float			dist;
-	float			light;
 	int				height;
 	t_image			*texture;
 	int				tex_x;
@@ -156,5 +154,6 @@ t_image		*xpm_image(char *xpm, t_mlx *mlx);
 int			load_textures(t_mlx *mlx);
 void		rotate_player(t_player *p, float angle);
 void		move_player(t_player *p, t_map *m, float distance);
+void		translate_player(t_player *p, t_map *m, float distance);
 
 #endif

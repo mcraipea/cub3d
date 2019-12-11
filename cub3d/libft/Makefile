@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/21 01:17:21 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/03 17:32:57 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/11 18:15:42 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS_NAME = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 			ft_lstlast_bonus.c ft_lstnew_bonus.c ft_strsplit.c ft_strnew.c\
 			ft_lstsize_bonus.c ft_countwords.c ft_memdel.c ft_strdel.c \
 			ft_lstrev.c ft_memalloc.c ft_lstcount.c ft_splitdel.c \
+			ft_swap.c \
 
 AR =	ar
 

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/10 21:23:39 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:14:02 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_player
 	float			y;
 	t_vector		d;
 	t_vector		p;
+	int				angle_start;
 }					t_player;
 
 typedef struct		s_texture
@@ -114,6 +115,18 @@ typedef struct		s_texture
 	char			*ea;
 	char			*s;
 }					t_texture;
+
+typedef struct		s_sprite
+{
+	float			pos_x;
+	float			pos_y;
+	int				nb_sprite;
+	int				width;
+	float			distance;
+	float			angle;
+	t_color			*color;
+}					t_sprite;
+
 
 typedef struct		s_mlx
 {
@@ -131,6 +144,7 @@ typedef struct		s_mlx
 	t_color			plafond;
 	t_image			*floor;
 	t_image			*ceiling;
+	t_sprite		*tab_sprite;
 }					t_mlx;
 
 int			hook_keydown(int key, t_mlx *data);
@@ -147,7 +161,7 @@ t_image		*del_image(t_mlx *mlx, t_image *img);
 t_color		get_pixel(t_image *image, int x, int y);
 void		clear_image(t_image *image);
 void		image_set_pixel(t_image *image, int x, int y, int color);
-t_color		clerp(t_color c1, t_color c2, double p);
+t_color		clerp(t_color c1, t_color c2);
 void		draw_minimap(t_mlx *data);
 int			error(char *str);
 t_image		*xpm_image(char *xpm, t_mlx *mlx);

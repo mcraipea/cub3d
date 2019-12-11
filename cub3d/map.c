@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:41:58 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 16:23:52 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:35:56 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,13 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 	char	**split;
 	int		x;
 	int		y;
+	int		i;
 
 	lst = list;
 	y = 0;
+	i = 0;
+	if (!(data->tab_sprite = ft_calloc(sizeof(t_sprite) * 1, 1)))
+		return (NULL);
 	while (y < data->map->height)
 	{
 		x = 0;
@@ -111,8 +115,30 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 			return (NULL);
 		while (x < data->map->width)
 		{
+			if (ft_strncmp(split[x], "N", 1) == 0 || ft_strncmp(split[x], "W", 1) == 0 || ft_strncmp(split[x], "E", 1) == 0 || ft_strncmp(split[x], "S", 1) == 0)
+			{
+				if (ft_strncmp(split[x], "N", 1) == 0)
+					data->player.angle_start = 0;
+				else if (ft_strncmp(split[x], "E", 1) == 0)
+					data->player.angle_start = 90;
+				else if (ft_strncmp(split[x], "S", 1) == 0)
+					data->player.angle_start = 180;
+				else if (ft_strncmp(split[x], "W", 1) == 0)
+					data->player.angle_start = 270;
+				data->player.x = (float)x;
+				data->player.y = (float)y;
+				ft_memset(split[x], 48, 1);
+			}
 			if ((data->map->values[y][x] = ft_atoi(split[x])) < 0 || data->map->values[y][x] > 2)
 				return (NULL);
+			if (data->map->values[y][x] == 2)
+			{
+				data->map->values[y][x] = 0;
+				data->tab_sprite->nb_sprite += 1;
+				data->tab_sprite[i].pos_x = x;
+				data->tab_sprite[i].pos_y = y;
+				i++;
+			}
 			x++;
 		}
 		ft_splitdel(&split);

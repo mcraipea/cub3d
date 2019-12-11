@@ -6,32 +6,28 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 12:00:28 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/05 13:58:12 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/11 10:53:27 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		ft_lerpi(int first, int second, double p)
+static int		ft_lerpi(int first, int second)
 {
 	if (first == second)
 		return (first);
-	return ((int)((double)first + (second - first) * p));
+	return ((int)((double)first + (second - first)));
 }
 
-t_color		clerp(t_color c1, t_color c2, double p)
+t_color		clerp(t_color c1, t_color c2)
 {
 	t_color c;
 
 	if (c1.value == c2.value)
 		return (c1);
-	if (p < 0.0f)
-		p = 0.0f;
-	if (p > 1.0f)
-		p = 1.0f;
-	c.rgba.r = (char)ft_lerpi((int)c1.rgba.r, (int)c2.rgba.r, p);
-	c.rgba.g = (char)ft_lerpi((int)c1.rgba.g, (int)c2.rgba.g, p);
-	c.rgba.b = (char)ft_lerpi((int)c1.rgba.b, (int)c2.rgba.b, p);
+	c.rgba.r = (char)ft_lerpi((int)c1.rgba.r, (int)c2.rgba.r);
+	c.rgba.g = (char)ft_lerpi((int)c1.rgba.g, (int)c2.rgba.g);
+	c.rgba.b = (char)ft_lerpi((int)c1.rgba.b, (int)c2.rgba.b);
 	c.rgba.a = (char)0x00;
 	return (c);
 }

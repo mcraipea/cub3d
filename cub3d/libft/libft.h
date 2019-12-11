@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:34:38 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/03 17:32:45 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:18:27 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int					ft_splitdel(char ***split);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strnew(size_t size);
+void				ft_swap(void **p1, void **p2);
 
 #endif

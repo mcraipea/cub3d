@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 16:56:06 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/11 13:13:17 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,25 @@ int	error(char *str)
 int main(int argc, char **argv)
 {
 	t_mlx		data;
-	//t_map		*map;
 
 	if (argc != 2)
 		return (error("error\nexample: ./cub3d [mapfile]"));
-	//if (!(data = malloc(sizeof(t_mlx))))
-	//	return (error("error\nmalloc doesn't works for data"));
 	read_map(argv[1], &data);
+	
+	/*int x = 0;
+	int y;
+	while (x < data.map->height)
+	{
+		y = 0;
+		while (y < data.map->width)
+		{
+			printf("%i", data.map->values[x][y]);
+			y++;
+		}
+		printf("\n");
+		x++;
+	}*/
+	
 	init(&data);
 	if (load_textures(&data) == 1)
 		return (error("error: couldn't load textures"));

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 17:14:02 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:07:45 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # define K_D		2
 # define K_LEFT		123
 # define K_RIGHT	124
-
-# define TEX_MAP_SIZE 20
 
 typedef struct		s_rgba
 {
@@ -83,6 +81,8 @@ typedef struct		s_cast
 	int				stepX;
 	int				stepY;
 	float			wallDist;
+	int				draw_start;
+	int				draw_end;
 }					t_cast;
 
 typedef struct		s_ray
@@ -118,13 +118,16 @@ typedef struct		s_texture
 
 typedef struct		s_sprite
 {
-	float			pos_x;
-	float			pos_y;
-	int				nb_sprite;
-	int				width;
-	float			distance;
+	float			x;
+	float			y;
+	float			dist;
+	int				sizex;
+	int				sizey;
 	float			angle;
-	t_color			*color;
+	float			angle_f;
+	float			angle_l;
+	float			rotx;
+	float			roty;
 }					t_sprite;
 
 
@@ -134,17 +137,19 @@ typedef struct		s_mlx
 	void			*window;
 	int				width_img;
 	int				height_img;
+	int				s_max;
 	t_texture		texture;
 	t_image			*image;
 	t_map			*map;
 	t_player		player;
-	t_image			*tex[TEX_MAP_SIZE];
-	int				max_tex;
+	t_image			*tex_no;
+	t_image			*tex_so;
+	t_image			*tex_we;
+	t_image			*tex_ea;
+	t_image			*tex_s;
 	t_color			sol;
 	t_color			plafond;
-	t_image			*floor;
-	t_image			*ceiling;
-	t_sprite		*tab_sprite;
+	t_sprite		*tsprite;
 }					t_mlx;
 
 int			hook_keydown(int key, t_mlx *data);
@@ -169,5 +174,9 @@ int			load_textures(t_mlx *mlx);
 void		rotate_player(t_player *p, float angle);
 void		move_player(t_player *p, t_map *m, float distance);
 void		translate_player(t_player *p, t_map *m, float distance);
+void		ft_do_dist_sprite(t_mlx *data);
+void		ft_check_if_visible(t_mlx *data, float wall_dist);
+void		ft_do_sort_sprite(t_mlx *data);
+void		ft_draw_sprites(t_mlx *data, int pixel, int sizex, t_sprite *sprite, float wall_dist);
 
 #endif

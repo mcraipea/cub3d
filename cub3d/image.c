@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 20:30:36 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 15:10:01 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 12:44:31 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_image		*xpm_image(char *xpm, t_mlx *mlx)
 		return (NULL);
 	if ((img->image = mlx_xpm_file_to_image(mlx->mlx, xpm, &img->width,
 			&img->height)) == NULL)
-		return (del_image(mlx, img));
+		return ((void*)del_image(mlx, img));
 	img->ptr = mlx_get_data_addr(img->image, &img->bpp, &img->stride,
 		&img->endian);
 	img->bpp /= 8;

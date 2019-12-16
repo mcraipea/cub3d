@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 21:24:52 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 14:47:07 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:10:58 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		hit_test(t_ray *ray, t_cast *cast, t_map *map)
 	return (hit);
 }
 
-void			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int height_img)
+float			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int height_img)
 {
 	t_cast		cast;
 	int			hit;
@@ -72,24 +72,14 @@ void			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int height
 		ray->tex_x = (int)(cast.wallDist * ray->texture->width);
 		castfloor(ray, &cast);
 	}
+	return (cast.wallDist);
 }
 
-static void		draw_floor(t_mlx *data, t_ray *ray, int x, int y)
+static void		draw_floor(t_mlx *data, int x, int y)
 {
-	float	cur;
-	float	weight;
-	int		fx;
-	int		fy;
-
 	while (y < data->height_img)
 	{
-		cur = data->height_img / (2.0f * y - data->height_img);
-		weight = cur / ray->dist;
-		fx = (int)((weight * ray->fx + (1.0f - weight) * data->player.x) * data->floor->width) % data->floor->width;
-		fy = (int)((weight * ray->fy + (1.0f - weight) * data->player.y) * data->floor->height) % data->floor->height;
 		image_set_pixel(data->image, x, y, data->sol.value);
-		fx = (int)((weight * ray->fx + (1.0f - weight) * data->player.x) * data->ceiling->width) % data->ceiling->width;
-		fy = (int)((weight * ray->fy + (1.0f - weight) * data->player.y) * data->ceiling->height) % data->ceiling->height;
 		image_set_pixel(data->image, x, data->height_img - y, data->plafond.value);
 		y++;
 	}
@@ -101,6 +91,7 @@ static void		draw_column(t_mlx *data, t_ray *ray, int x)
 	int			start;
 	int			end;
 	int			tex_y;
+	t_image		*temp;
 
 	if (ray->texture == NULL)
 		return ;
@@ -114,10 +105,18 @@ static void		draw_column(t_mlx *data, t_ray *ray, int x)
 	while (y < end)
 	{
 		tex_y = ((y - data->height_img * 0.5f + ray->height * 0.5f) * ray->texture->height) / ray->height;
-		image_set_pixel(data->image, x, y, get_pixel(ray->texture, ray->tex_x, tex_y).value);
+		if (ray->side == 1 && ray->y < 0)
+			temp = data->tex_no;
+		else if (ray->side == 1 && ray->y > 0)
+			temp = data->tex_so;
+		else if (ray->side == 0 && ray->x > 0)
+			temp = data->tex_ea;
+		else
+			temp = data->tex_we;
+		image_set_pixel(data->image, x, y, get_pixel(temp, ray->tex_x, tex_y).value);
 		y++;
 	}
-	draw_floor(data, ray, x, y);
+	draw_floor(data, x, y);
 }
 
 void		camera(t_mlx *data)
@@ -125,6 +124,7 @@ void		camera(t_mlx *data)
 	int			x;
 	t_ray		ray;
 	float		cam;
+	float		wall_dist;
 
 	clear_image(data->image);
 	x = 0;
@@ -133,9 +133,11 @@ void		camera(t_mlx *data)
 		cam = (float)(2.0f * x / data->width_img - 1.0f);
 		ray.x = data->player.d.x + data->player.p.x * cam;
 		ray.y = data->player.d.y + data->player.p.y * cam;
-		cast(&ray, data->map, &data->player, data->tex, data->height_img);
+		wall_dist = cast(&ray, data->map, &data->player, &data->tex_no, data->height_img);
 		draw_column(data, &ray, x);
 		x++;
 	}
+	ft_do_dist_sprite(data);
+	ft_check_if_visible(data, wall_dist);
 	mlx_put_image_to_window(data->mlx, data->window, data->image->image, 0, 0);
 }

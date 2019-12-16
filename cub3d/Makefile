@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/02 13:30:34 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/06 16:27:44 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/16 17:09:24 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ SRC = main.c \
 	image.c \
 	get_position.c \
 	keyboard.c \
+	sprite.c \
+	sort_sprite.c \
+	draw_sprite.c \
 
 OBJ = $(SRC:.c=.o)
 

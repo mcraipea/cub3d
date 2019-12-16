@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:48:40 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 15:09:07 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 12:50:48 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,52 @@ static void	free_textures(t_mlx *mlx)
 	int i;
 
 	i = 0;
-	while (i < TEX_MAP_SIZE)
-		del_image(mlx, mlx->tex[i++]);
+	while (i < 4)
+	{
+		del_image(mlx, mlx->tex_no);
+		del_image(mlx, mlx->tex_so);
+		del_image(mlx, mlx->tex_we);
+		del_image(mlx, mlx->tex_ea);
+		del_image(mlx, mlx->tex_s);
+		i++;
+	}
 }
 
 int			load_textures(t_mlx *mlx)
 {
-	static char	*map[TEX_MAP_SIZE] = { "brick.xpm", "wood.xpm", "metal.xpm",
-		"stone.xpm", "grass.xpm", NULL };
-	t_image		*img;
 	int			i;
-	char		*t;
 
-	i = 1;
-	while (i < TEX_MAP_SIZE && map[i - 1])
+	i = 0;
+	if ((mlx->tex_no = xpm_image(mlx->texture.no, mlx)) == NULL)
 	{
-		t = ft_strjoin("textures/", map[i - 1]);
-		if ((img = xpm_image(t, mlx)) == NULL)
-		{
-			ft_strdel(&t);
-			free_textures(mlx);
-			return (1);
-		}
-		ft_strdel(&t);
-		mlx->tex[i] = img;
-		i++;
+		free_textures(mlx);
+		return (1);
 	}
-	mlx->max_tex = i - 1;
-	mlx->tex[0] = NULL;
-	mlx->floor = mlx->tex[2];
-	mlx->ceiling = mlx->tex[4];
+	i++;
+	if ((mlx->tex_so = xpm_image(mlx->texture.so, mlx)) == NULL)
+	{
+		free_textures(mlx);
+		return (1);
+	}
+	i++;
+	if ((mlx->tex_we = xpm_image(mlx->texture.we, mlx)) == NULL)
+	{
+		free_textures(mlx);
+		return (1);
+	}
+	i++;
+	if ((mlx->tex_ea = xpm_image(mlx->texture.ea, mlx)) == NULL)
+	{
+		free_textures(mlx);
+		return (1);
+	}
+	i++;
+	if ((mlx->tex_s = xpm_image(mlx->texture.s, mlx)) == NULL)
+	{
+		free_textures(mlx);
+		return (1);
+	}
+	i++;
 	return (0);
 }
 

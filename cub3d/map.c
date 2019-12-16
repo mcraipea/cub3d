@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:41:58 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 18:35:56 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:30:21 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,19 +95,45 @@ static t_mlx	*new_map(int w, int h, t_mlx *data)
 	return (data);
 }
 
+static int			init_sprite(t_mlx *data)
+{
+	int			x;
+	int			y;
+	int			i;
+
+	i = 0;
+	y = 0;
+	if (!(data->tsprite = calloc(sizeof(t_sprite) * data->s_max, 1)))
+		return (1);
+	while (y < data->map->height)
+	{
+		x = 0;
+		while (x < data->map->width)
+		{
+			if (data->map->values[y][x] == 2)
+			{
+				data->map->values[y][x] = 0;
+				data->tsprite[i].x = x;
+				data->tsprite[i].y = y;
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 {
 	t_list	*lst;
 	char	**split;
 	int		x;
 	int		y;
-	int		i;
 
 	lst = list;
 	y = 0;
-	i = 0;
-	if (!(data->tab_sprite = ft_calloc(sizeof(t_sprite) * 1, 1)))
-		return (NULL);
+	data->s_max = 0;
 	while (y < data->map->height)
 	{
 		x = 0;
@@ -132,19 +158,15 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 			if ((data->map->values[y][x] = ft_atoi(split[x])) < 0 || data->map->values[y][x] > 2)
 				return (NULL);
 			if (data->map->values[y][x] == 2)
-			{
-				data->map->values[y][x] = 0;
-				data->tab_sprite->nb_sprite += 1;
-				data->tab_sprite[i].pos_x = x;
-				data->tab_sprite[i].pos_y = y;
-				i++;
-			}
+				data->s_max += 1;
 			x++;
 		}
 		ft_splitdel(&split);
 		lst = lst->next;
 		y++;
 	}
+	if (init_sprite(data) == 1)
+		return (NULL);
 	cleanup(list, NULL);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 13:13:17 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/12 20:41:02 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,6 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		return (error("error\nexample: ./cub3d [mapfile]"));
 	read_map(argv[1], &data);
-	
-	/*int x = 0;
-	int y;
-	while (x < data.map->height)
-	{
-		y = 0;
-		while (y < data.map->width)
-		{
-			printf("%i", data.map->values[x][y]);
-			y++;
-		}
-		printf("\n");
-		x++;
-	}*/
-	
 	init(&data);
 	if (load_textures(&data) == 1)
 		return (error("error: couldn't load textures"));

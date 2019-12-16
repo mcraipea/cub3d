@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/21 01:17:21 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/11 18:15:42 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/16 19:10:45 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,9 @@ SRCS_NAME = ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 			ft_lstrev.c ft_memalloc.c ft_lstcount.c ft_splitdel.c \
 			ft_swap.c \
 
+BMP	=	./bmp/encode.c ./bmp/bitmap.c ./bmp/check.c ./bmp/header.c \
+		./bmp/rgb_encode.c ./bmp/utils.c
+
 AR =	ar
 
 HEADERS =	./includes
@@ -40,13 +43,15 @@ SRCS =	$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS = ${SRCS:.c=.o}
 
+BMPS = $(BMP:.c=.o)
+
 all:	${NAME}
 
-$(NAME):	${OBJS}
-			${AR} -sucr ${NAME} ${OBJS}
+$(NAME):	${OBJS} $(BMPS)
+			${AR} -sucr ${NAME} ${OBJS} $(BMPS)
 		
 clean:
-					rm -f ${OBJS} ${OBJS2}
+					rm -f ${OBJS} ${OBJS2} $(BMPS)
 
 fclean: 			clean
 					rm -f ${NAME}

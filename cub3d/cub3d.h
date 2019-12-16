@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 17:07:45 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 19:26:20 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,6 @@ void		ft_do_dist_sprite(t_mlx *data);
 void		ft_check_if_visible(t_mlx *data, float wall_dist);
 void		ft_do_sort_sprite(t_mlx *data);
 void		ft_draw_sprites(t_mlx *data, int pixel, int sizex, t_sprite *sprite, float wall_dist);
+int			ft_strchr_at_end(char *str, char *find);
 
 #endif

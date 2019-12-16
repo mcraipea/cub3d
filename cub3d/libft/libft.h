@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 10:34:38 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 18:18:27 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/16 19:12:16 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <string.h>
 # include <stdlib.h>
+# include "./bmp/includes/libbmp.h"
 
 typedef struct		s_list
 {

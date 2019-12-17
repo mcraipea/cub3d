@@ -6,13 +6,13 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 17:40:17 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 12:49:04 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:47:11 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_swap_sprite2(t_sprite *a, t_sprite *b)
+/*static void	ft_swap_sprite2(t_sprite *a, t_sprite *b)
 {
 	int	i_b;
 
@@ -22,7 +22,7 @@ static void	ft_swap_sprite2(t_sprite *a, t_sprite *b)
 	i_b = a->sizey;
 	a->sizey = b->sizey;
 	b->sizey = i_b;
-}
+}*/
 
 static void	ft_swap_sprite(t_sprite *a, t_sprite *b)
 {
@@ -48,7 +48,7 @@ static void	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	lf_b = a->angle;
 	a->angle = b->angle;
 	b->angle = lf_b;
-	ft_swap_sprite2(a, b);
+	//ft_swap_sprite2(a, b);
 }
 
 void		ft_do_sort_sprite(t_mlx *data)
@@ -58,8 +58,6 @@ void		ft_do_sort_sprite(t_mlx *data)
 	i = 0;
 	while (i < data->s_max - 1)
 	{
-		//printf("dist sprite 1 : %f\n", data->tsprite[i].dist);
-		//printf("dist sprite 2 : %f\n", data->tsprite[i + 1].dist);
 		if (data->tsprite[i].dist < data->tsprite[i + 1].dist)
 		{
 			ft_swap_sprite(&data->tsprite[i], &data->tsprite[i + 1]);

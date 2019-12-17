@@ -3,7 +3,7 @@ NO ./textures/brick.xpm
 SO ./textures/brick.xpm
 WE ./textures/metal.xpm
 EA ./textures/wood.xpm
-S ./textures/piece.xpm
+S ./textures/angry_birds.xpm
 F 100,50,0
 C 0,0,0
 1 1 1 1 1 1 1 1 1 1 1 1

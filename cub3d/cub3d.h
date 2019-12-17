@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 13:34:58 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:50:36 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,17 @@ typedef struct		s_sprite
 {
 	float			x;
 	float			y;
+	float			spriteX;
+	float			spriteY;
+	int				spriteScreenX;
+	int				drawStartY;
+	int				drawEndY;
+	int				spriteWidth;
+	int				drawStartX;
+	int				drawEndX;
 	float			dist;
 	int				sizex;
-	int				sizey;
+	int				spriteHeight;
 	float			angle;
 	float			angle_f;
 	float			angle_l;
@@ -139,6 +147,7 @@ typedef struct		s_mlx
 	int				width_img;
 	int				height_img;
 	int				s_max;
+	float			angle;
 	t_texture		texture;
 	t_image			*image;
 	t_map			*map;
@@ -178,7 +187,7 @@ void		translate_player(t_player *p, t_map *m, float distance);
 void		ft_do_dist_sprite(t_mlx *data);
 void		ft_check_if_visible(t_mlx *data, float wall_dist);
 void		ft_do_sort_sprite(t_mlx *data);
-void		ft_draw_sprites(t_mlx *data, int pixel, int sizex, t_sprite *sprite, float wall_dist);
+void		ft_draw_sprites(t_mlx *data, int pixel, t_sprite *sprite, float wall_dist);
 int			ft_strchr_at_end(char *str, char *find);
 
 #endif

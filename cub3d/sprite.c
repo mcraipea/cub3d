@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:42:22 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 15:44:24 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:55:17 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static float	to_d(float radian)
 	return (radian * (180 / 3.14159265));
 }
 
-static int		ft_raying_sprite(t_mlx *data, float angle_s)
+/*static int		ft_raying_sprite(t_mlx *data, float angle_s)
 {
 	int	i;
 
 	i = 0;
+	(void)angle_s;
 	while (i < data->width_img - 1)
 	{
-		if (angle_s >= (cos(M_PI_2) * data->player.d.x - sin(M_PI_2) * data->player.d.y) && angle_s <= (cos(M_PI_2) * data->player.d.x - sin(M_PI_2) * data->player.d.y))
-			return (i);
+		//if (angle_s >= (cos(M_PI_2) * data->player.d.x - sin(M_PI_2) * data->player.d.y) && angle_s <= (cos(M_PI_2) * data->player.d.x - sin(M_PI_2) * data->player.d.y))
+		return (i);
 		i++;
 	}
 	return (-1);
@@ -49,7 +50,7 @@ static void	ft_zbuffer(t_mlx *data, t_sprite *sprite, float pas, float wall_dist
 		angle_s += pas;
 	}
 	ft_draw_sprites(data, pixel, sprite->sizex - size, sprite, wall_dist);
-}
+}*/
 
 static void	ft_init_dist_tsprite(t_mlx *data, float *distx, float *disty, int i)
 {
@@ -107,7 +108,11 @@ void		ft_do_dist_sprite(t_mlx *data)
 void				ft_check_if_visible(t_mlx *data, float wall_dist)
 {
 	int		i;
+	int		j;
 	float	pas;
+	float	invDet;
+	float	transformX;
+	float	transformY;
 
 	i = 0;
 	pas = 60 / (float)data->width_img;
@@ -115,19 +120,39 @@ void				ft_check_if_visible(t_mlx *data, float wall_dist)
 	//printf("pas : %f\n", pas);
 	while (i < data->s_max)
 	{
-		data->tsprite[i].sizey = (int)(data->height_img / data->tsprite[i].dist);
-		data->tsprite[i].sizex = data->tsprite[i].sizey * 1.33;
-		data->tsprite[i].angle_f = data->tsprite[i].angle - (pas *
-			(data->tsprite[i].sizex / 2));
-		//printf("angle_f : %f\n", data->tsprite[i].angle_f);
-		data->tsprite[i].angle_l = data->tsprite[i].angle + (pas *
-			(data->tsprite[i].sizex / 2));
-		//printf("angle_l : %f\n", data->tsprite[i].angle_l);
-		//data->tsprite[i].angle_f = lissage_angle(data->tsprite[i].angle_f);
-		//printf("angle_f apres lissage : %f\n", data->tsprite[i].angle_f);
-		//data->tsprite[i].angle_l = lissage_angle(data->tsprite[i].angle_l);
-		//printf("angle_l apres lissage : %f\n", data->tsprite[i].angle_l);
-		ft_zbuffer(data, &data->tsprite[i], pas, wall_dist);
+		data->tsprite[i].spriteX = data->tsprite[i].x - data->player.x;
+		data->tsprite[i].spriteY = data->tsprite[i].y - data->player.y;
+		
+		invDet = 1.0 / (data->player.p.x * data->player.d.y - data->player.d.x * data->player.p.y);
+
+		transformX = invDet * (data->player.d.y * data->tsprite[i].spriteX - data->player.d.x * data->tsprite[i].spriteY);
+		transformY = invDet * (- data->player.p.y * data->tsprite[i].spriteX + data->player.p.x * data->tsprite[i].spriteY);
+
+		data->tsprite[i].spriteScreenX = (int)((data->width_img / 2) * (1 + transformX / transformY));
+
+		data->tsprite[i].spriteHeight = abs((int)(data->height_img / transformY));
+		
+		data->tsprite[i].drawStartY = - data->tsprite[i].spriteHeight / 2 + data->height_img / 2;
+		if (data->tsprite[i].drawStartY < 0)
+			data->tsprite[i].drawStartY = 0;
+		data->tsprite[i].drawEndY = data->tsprite[i].spriteHeight / 2 + data->height_img / 2;
+		if (data->tsprite[i].drawEndY > data->height_img)
+			data->tsprite[i].drawEndY = data->height_img - 1;
+		
+		data->tsprite[i].spriteWidth = abs((int) (data->height_img / (transformY)));
+		data->tsprite[i].drawStartX = - data->tsprite[i].spriteWidth / 2 + data->tsprite[i].spriteScreenX;
+		if (data->tsprite[i].drawStartX < 0)
+			data->tsprite[i].drawStartX = 0;
+		printf("drawStartX : %i\n", data->tsprite[i].drawStartX);
+		data->tsprite[i].drawEndX = data->tsprite[i].spriteWidth / 2 + data->tsprite[i].spriteScreenX;
+		if (data->tsprite[i].drawEndX >= data->width_img)
+			data->tsprite[i].drawEndX = data->width_img - 1;
+		j = data->tsprite[i].drawStartX;
+		while (j < data->tsprite[i].drawEndX)
+		{
+			ft_draw_sprites(data, data->tsprite[i].spriteScreenX, data->tsprite, wall_dist);
+			j++;
+		}
 		i++;
 	}
 }

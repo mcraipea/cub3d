@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:33:14 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 13:47:06 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:50:11 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ft_draw_a_colum_sprite(t_mlx *data, int i, int hp, int xpixel)
 	while (j <= (data->height_img / 2) + (hp / 2) && j < data->height_img)
 	{
 		ft_get_tex_ypixel_sprite(data, tab, c);
-		if (!(c[0] == 0 && c[1] == 0 && c[2] == 0))
+		if (!(c[0] == 255 && c[1] == 255 && c[2] == 255))
 		{
 			data->image->ptr[j * data->image->stride + (data->width_img - 1 - i) * 4 + 0] = (char)c[0];
 			data->image->ptr[j * data->image->stride + (data->width_img - 1 - i) * 4 + 1] = (char)c[1];
@@ -72,22 +72,20 @@ static void	ft_draw_a_colum_sprite(t_mlx *data, int i, int hp, int xpixel)
 	}
 }
 
-void	ft_draw_sprites(t_mlx *data, int pixel, int sizex, t_sprite *sprite, float wall_dist)
+void	ft_draw_sprites(t_mlx *data, int pixel, t_sprite *sprite, float wall_dist)
 {
 	int		i;
 	int		xpixel;
 	float	x_pas;
 
 	i = pixel;
-	x_pas = data->tex_s->width / sprite->sizex;
-	xpixel = sprite->sizex - sizex;
-	while (i < data->width_img && xpixel < sprite->sizex)
+	x_pas = data->tex_s->width / sprite->spriteHeight;
+	xpixel = sprite->spriteHeight - sprite->spriteHeight;
+	while (i < data->width_img && xpixel < sprite->spriteHeight)
 	{
-		//printf("sprite->dist : %f\n", sprite->dist);
-		//printf("wall_dist : %f\n", wall_dist);
 		if (sprite->dist < wall_dist)
-			ft_draw_a_colum_sprite(data, i, sprite->sizey,
-			(int)(xpixel * data->tex_s->height / sprite->sizey));
+			ft_draw_a_colum_sprite(data, i, sprite->spriteWidth,
+			(int)(xpixel * data->tex_s->height / sprite->spriteWidth));
 		i++;
 		xpixel += 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 16:33:14 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 17:07:46 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:47:06 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	ft_draw_sprites(t_mlx *data, int pixel, int sizex, t_sprite *sprite, float 
 	xpixel = sprite->sizex - sizex;
 	while (i < data->width_img && xpixel < sprite->sizex)
 	{
+		//printf("sprite->dist : %f\n", sprite->dist);
+		//printf("wall_dist : %f\n", wall_dist);
 		if (sprite->dist < wall_dist)
 			ft_draw_a_colum_sprite(data, i, sprite->sizey,
 			(int)(xpixel * data->tex_s->height / sprite->sizey));

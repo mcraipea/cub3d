@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 19:26:20 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:34:58 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_ray
 	float			dist;
 	int				height;
 	t_image			*texture;
+	float			dist_towall;
 	int				tex_x;
 	float			fx;
 	float			fy;

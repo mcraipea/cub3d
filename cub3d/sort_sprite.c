@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 17:40:17 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 17:08:42 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 12:49:04 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		ft_do_sort_sprite(t_mlx *data)
 	i = 0;
 	while (i < data->s_max - 1)
 	{
+		//printf("dist sprite 1 : %f\n", data->tsprite[i].dist);
+		//printf("dist sprite 2 : %f\n", data->tsprite[i + 1].dist);
 		if (data->tsprite[i].dist < data->tsprite[i + 1].dist)
 		{
 			ft_swap_sprite(&data->tsprite[i], &data->tsprite[i + 1]);

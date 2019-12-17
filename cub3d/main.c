@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 19:49:33 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 12:37:17 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,3 @@ int main(int argc, char **argv)
 	mlx_loop(&data.mlx);
 	return (EXIT_SUCCESS);
 }
-
-//on sen fou

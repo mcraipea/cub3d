@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 21:24:52 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 17:10:58 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 13:49:49 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ float			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int heigh
 		ray->height = (int)floor(height_img / ray->dist);
 		ray->texture = tex[hit];
 		cast.wallDist = (ray->side ? player->x + ray->dist * ray->x : player->y + ray->dist * ray->y);
+		ray->dist_towall = cast.wallDist;
 		cast.wallDist -= floor(cast.wallDist);
 		ray->tex_x = (int)(cast.wallDist * ray->texture->width);
 		castfloor(ray, &cast);
@@ -138,6 +139,6 @@ void		camera(t_mlx *data)
 		x++;
 	}
 	ft_do_dist_sprite(data);
-	ft_check_if_visible(data, wall_dist);
+	ft_check_if_visible(data, ray.dist_towall);
 	mlx_put_image_to_window(data->mlx, data->window, data->image->image, 0, 0);
 }

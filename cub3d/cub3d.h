@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 18:50:36 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 20:01:17 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,6 @@ typedef struct		s_sprite
 	float			dist;
 	int				sizex;
 	int				spriteHeight;
-	float			angle;
-	float			angle_f;
-	float			angle_l;
-	float			rotx;
-	float			roty;
 }					t_sprite;
 
 
@@ -187,7 +182,6 @@ void		translate_player(t_player *p, t_map *m, float distance);
 void		ft_do_dist_sprite(t_mlx *data);
 void		ft_check_if_visible(t_mlx *data, float wall_dist);
 void		ft_do_sort_sprite(t_mlx *data);
-void		ft_draw_sprites(t_mlx *data, int pixel, t_sprite *sprite, float wall_dist);
 int			ft_strchr_at_end(char *str, char *find);
 
 #endif

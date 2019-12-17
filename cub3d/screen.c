@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 21:24:52 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 16:32:20 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/17 19:00:55 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ void		camera(t_mlx *data)
 		ray.y = data->player.d.y + data->player.p.y * cam;
 		wall_dist = cast(&ray, data->map, &data->player, &data->tex_no, data->height_img);
 		draw_column(data, &ray, x);
+		//ft_do_dist_sprite(data);
+		//ft_check_if_visible(data, ray.dist_towall);
 		x++;
 	}
 	ft_do_dist_sprite(data);

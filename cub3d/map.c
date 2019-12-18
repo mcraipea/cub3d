@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:41:58 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 18:30:21 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:14:11 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_mlx		*parse_resolution(char *line, t_mlx *data)
 {
-	int 	i;
+	int		i;
 	int		j;
 	char	buffer[20];
 
@@ -40,7 +40,7 @@ static t_mlx		*parse_resolution(char *line, t_mlx *data)
 	return (data);
 }
 
-static void		*cleanup(t_list *lst, t_map *map)
+static void			*cleanup(t_list *lst, t_map *map)
 {
 	t_list	*next;
 	int		i;
@@ -67,7 +67,7 @@ static void		*cleanup(t_list *lst, t_map *map)
 	return (NULL);
 }
 
-static t_mlx	*new_map(int w, int h, t_mlx *data)
+static t_mlx		*new_map(int w, int h, t_mlx *data)
 {
 	int		i;
 
@@ -83,7 +83,8 @@ static t_mlx	*new_map(int w, int h, t_mlx *data)
 	i = 0;
 	while (i < h)
 	{
-		if ((data->map->values[i] = (int *)ft_calloc(sizeof(int) * w, 1)) == NULL)
+		if ((data->map->values[i] =
+			(int *)ft_calloc(sizeof(int) * w, 1)) == NULL)
 		{
 			while (i > 0)
 				ft_memdel((void **)(data->map->values + --i));
@@ -124,7 +125,7 @@ static int			init_sprite(t_mlx *data)
 	return (0);
 }
 
-static t_mlx	*remplir_map(t_mlx *data, t_list *list)
+static t_mlx		*remplir_map(t_mlx *data, t_list *list)
 {
 	t_list	*lst;
 	char	**split;
@@ -141,7 +142,9 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 			return (NULL);
 		while (x < data->map->width)
 		{
-			if (ft_strncmp(split[x], "N", 1) == 0 || ft_strncmp(split[x], "W", 1) == 0 || ft_strncmp(split[x], "E", 1) == 0 || ft_strncmp(split[x], "S", 1) == 0)
+			if (ft_strncmp(split[x], "N", 1) == 0 || ft_strncmp(split[x],
+				"W", 1) == 0 || ft_strncmp(split[x], "E", 1) == 0 ||
+					ft_strncmp(split[x], "S", 1) == 0)
 			{
 				if (ft_strncmp(split[x], "N", 1) == 0)
 					data->player.angle_start = 0;
@@ -155,7 +158,8 @@ static t_mlx	*remplir_map(t_mlx *data, t_list *list)
 				data->player.y = (float)y;
 				ft_memset(split[x], 48, 1);
 			}
-			if ((data->map->values[y][x] = ft_atoi(split[x])) < 0 || data->map->values[y][x] > 2)
+			if ((data->map->values[y][x] = ft_atoi(split[x])) < 0 ||
+				data->map->values[y][x] > 2)
 				return (NULL);
 			if (data->map->values[y][x] == 2)
 				data->s_max += 1;

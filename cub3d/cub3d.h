@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 13:24:41 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:15:03 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ typedef struct		s_vector
 
 typedef struct		s_cast
 {
-	int				mapX;
-	int				mapY;
-	float			sideDistX;
-	float			sideDistY;
-	float			deltaDistX;
-	float			deltaDistY;
-	int				stepX;
-	int				stepY;
-	float			wallDist;
+	int				map_x;
+	int				map_y;
+	float			s_dist_x;
+	float			s_dist_y;
+	float			d_dis_x;
+	float			d_dis_y;
+	int				step_x;
+	int				step_y;
+	float			wall_d;
 	int				draw_start;
 	int				draw_end;
 }					t_cast;
@@ -179,8 +179,9 @@ void				rotate_player(t_player *p, float angle);
 void				move_player(t_player *p, t_map *m, float distance);
 void				translate_player(t_player *p, t_map *m, float distance);
 void				ft_do_dist_sprite(t_mlx *data);
-void				ft_check_if_visible(t_mlx *data, float *zBuffer);
+void				ft_check_if_visible(t_mlx *data, float *z_buffer);
 void				ft_do_sort_sprite(t_mlx *data);
 int					ft_strchr_at_end(char *str, char *find);
+void				draw_column(t_mlx *data, t_ray *ray, int x);
 
 #endif

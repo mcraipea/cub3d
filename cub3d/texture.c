@@ -6,64 +6,45 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:48:40 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 12:50:48 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:22:23 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	free_textures(t_mlx *mlx)
+static int		free_textures(t_mlx *mlx)
 {
-	int i;
-
-	i = 0;
-	while (i < 4)
-	{
-		del_image(mlx, mlx->tex_no);
-		del_image(mlx, mlx->tex_so);
-		del_image(mlx, mlx->tex_we);
-		del_image(mlx, mlx->tex_ea);
-		del_image(mlx, mlx->tex_s);
-		i++;
-	}
+	del_image(mlx, mlx->tex_no);
+	del_image(mlx, mlx->tex_so);
+	del_image(mlx, mlx->tex_we);
+	del_image(mlx, mlx->tex_ea);
+	del_image(mlx, mlx->tex_s);
+	return (1);
 }
 
-int			load_textures(t_mlx *mlx)
+int				load_textures(t_mlx *mlx)
 {
 	int			i;
+	int			j;
 
 	i = 0;
+	j = 0;
 	if ((mlx->tex_no = xpm_image(mlx->texture.no, mlx)) == NULL)
-	{
-		free_textures(mlx);
-		return (1);
-	}
+		j = free_textures(mlx);
 	i++;
 	if ((mlx->tex_so = xpm_image(mlx->texture.so, mlx)) == NULL)
-	{
-		free_textures(mlx);
-		return (1);
-	}
+		j = free_textures(mlx);
 	i++;
 	if ((mlx->tex_we = xpm_image(mlx->texture.we, mlx)) == NULL)
-	{
-		free_textures(mlx);
-		return (1);
-	}
+		j = free_textures(mlx);
 	i++;
 	if ((mlx->tex_ea = xpm_image(mlx->texture.ea, mlx)) == NULL)
-	{
-		free_textures(mlx);
-		return (1);
-	}
+		j = free_textures(mlx);
 	i++;
 	if ((mlx->tex_s = xpm_image(mlx->texture.s, mlx)) == NULL)
-	{
-		free_textures(mlx);
-		return (1);
-	}
+		j = free_textures(mlx);
 	i++;
-	return (0);
+	return (j);
 }
 
 static char		*parse2_texture(char *line)
@@ -85,7 +66,7 @@ static char		*parse2_texture(char *line)
 	return (dest);
 }
 
-t_mlx	*parse_texture(char *line, t_mlx *data)
+t_mlx			*parse_texture(char *line, t_mlx *data)
 {
 	if (line[0] == 'N')
 		data->texture.no = parse2_texture(line);

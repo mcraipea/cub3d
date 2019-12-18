@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 13:47:24 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 14:01:15 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ int			error(char *str)
 	return (1);
 }
 
-int 		main(int argc, char **argv)
+static int	verif_arg(int argc, char **argv)
 {
-	t_mlx		data;
-	int			fd;
-
 	if (argc != 2)
 	{
 		if (argc == 1)
@@ -41,6 +38,15 @@ int 		main(int argc, char **argv)
 	}
 	if (ft_strchr_at_end(argv[1], ".cub") == -1)
 		return (error("error\nexample of mapfile : map.cub"));
+	return (1);
+}
+
+int			main(int argc, char **argv)
+{
+	t_mlx		data;
+	int			fd;
+
+	verif_arg(argc, argv);
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		return (error("error\nyour mapfile doesn't exist"));
 	read_map(argv[1], &data);

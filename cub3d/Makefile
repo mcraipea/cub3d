@@ -6,7 +6,7 @@
 #    By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/02 13:30:34 by mcraipea          #+#    #+#              #
-#    Updated: 2019/12/17 20:01:16 by mcraipea         ###   ########.fr        #
+#    Updated: 2019/12/18 15:15:39 by mcraipea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = main.c \
 	sprite.c \
 	sort_sprite.c \
 	utils.c \
+	draw_column.c \
 
 OBJ = $(SRC:.c=.o)
 

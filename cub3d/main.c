@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 12:37:17 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:47:24 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ static int	hook_close(t_mlx *mlx)
 	return (0);
 }
 
-int	error(char *str)
+int			error(char *str)
 {
 	ft_putstr_fd(str, 1);
 	exit(EXIT_FAILURE);
 	return (1);
 }
 
-
-int main(int argc, char **argv)
+int 		main(int argc, char **argv)
 {
 	t_mlx		data;
 	int			fd;
@@ -38,7 +37,7 @@ int main(int argc, char **argv)
 		if (argc == 1)
 			return (error("error\nexample: ./cub3d [mapfile]"));
 		if (argc > 3 && (ft_strncmp(argv[2], "--save", 7)) != 0)
-			return (error("error\nexample: ./cub3d [mapfile]\n(option --save is possible)"));
+			return (error("error\nexample: ./cub3d [mapfile]"));
 	}
 	if (ft_strchr_at_end(argv[1], ".cub") == -1)
 		return (error("error\nexample of mapfile : map.cub"));
@@ -52,7 +51,8 @@ int main(int argc, char **argv)
 	camera(&data);
 	if (argc == 3 && (!ft_strncmp(argv[2], "--save", 7)))
 	{
-		export_as_bmp("./screens/screenshot.bmp", data.image->ptr, data.width_img, data.height_img);
+		export_as_bmp("./screens/screenshot.bmp", data.image->ptr,
+			data.width_img, data.height_img);
 		return (EXIT_SUCCESS);
 	}
 	mlx_hook(data.window, 2, 1L << 0, hook_keydown, &data);

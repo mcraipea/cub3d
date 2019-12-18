@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 20:30:36 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/16 12:44:31 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:30:06 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ void		image_set_pixel(t_image *image, int x, int y, int color)
 void		clear_image(t_image *image)
 {
 	ft_bzero(image->ptr, image->width * image->height * image->bpp);
-}
-
-t_color		get_pixel(t_image *image, int x, int y)
-{
-	if (x < 0 || y < 0 || x >= image->width || y >= image->height)
-		return ((t_color)0x0);
-	return ((t_color)*(int *)(image->ptr + ((x + y * image->width)
-			* image->bpp)));
 }
 
 t_image		*del_image(t_mlx *mlx, t_image *img)

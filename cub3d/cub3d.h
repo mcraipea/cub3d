@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 13:04:40 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:24:41 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ typedef struct		s_sprite
 	int				spriteHeight;
 }					t_sprite;
 
-
 typedef struct		s_mlx
 {
 	void			*mlx;
@@ -157,31 +156,31 @@ typedef struct		s_mlx
 	t_sprite		*tsprite;
 }					t_mlx;
 
-int			hook_keydown(int key, t_mlx *data);
-void		read_map(char *argv, t_mlx *data);
-t_mlx		*parse_texture(char *line, t_mlx *data);
-t_mlx		*parse_couleur(char *line, t_mlx *data);
-void		init_position(t_player *player);
-int			get_position(t_map *map, int x, int y);
-void		screen(t_mlx *data);
-void		camera(t_mlx *data);
-void		init(t_mlx *data);
-t_image		*new_image(t_mlx *mlx, int w, int h);
-t_image		*del_image(t_mlx *mlx, t_image *img);
-t_color		get_pixel(t_image *image, int x, int y);
-void		clear_image(t_image *image);
-void		image_set_pixel(t_image *image, int x, int y, int color);
-t_color		clerp(t_color c1, t_color c2);
-void		draw_minimap(t_mlx *data);
-int			error(char *str);
-t_image		*xpm_image(char *xpm, t_mlx *mlx);
-int			load_textures(t_mlx *mlx);
-void		rotate_player(t_player *p, float angle);
-void		move_player(t_player *p, t_map *m, float distance);
-void		translate_player(t_player *p, t_map *m, float distance);
-void		ft_do_dist_sprite(t_mlx *data);
-void		ft_check_if_visible(t_mlx *data, float *zBuffer);
-void		ft_do_sort_sprite(t_mlx *data);
-int			ft_strchr_at_end(char *str, char *find);
+int					hook_keydown(int key, t_mlx *data);
+void				read_map(char *argv, t_mlx *data);
+t_mlx				*parse_texture(char *line, t_mlx *data);
+t_mlx				*parse_couleur(char *line, t_mlx *data);
+void				init_position(t_player *player);
+int					get_position(t_map *map, int x, int y);
+void				screen(t_mlx *data);
+void				camera(t_mlx *data);
+void				init(t_mlx *data);
+t_image				*new_image(t_mlx *mlx, int w, int h);
+t_image				*del_image(t_mlx *mlx, t_image *img);
+t_color				get_pixel(t_image *image, int x, int y);
+void				clear_image(t_image *image);
+void				image_set_pixel(t_image *image, int x, int y, int color);
+t_color				clerp(t_color c1, t_color c2);
+void				draw_minimap(t_mlx *data);
+int					error(char *str);
+t_image				*xpm_image(char *xpm, t_mlx *mlx);
+int					load_textures(t_mlx *mlx);
+void				rotate_player(t_player *p, float angle);
+void				move_player(t_player *p, t_map *m, float distance);
+void				translate_player(t_player *p, t_map *m, float distance);
+void				ft_do_dist_sprite(t_mlx *data);
+void				ft_check_if_visible(t_mlx *data, float *zBuffer);
+void				ft_do_sort_sprite(t_mlx *data);
+int					ft_strchr_at_end(char *str, char *find);
 
 #endif

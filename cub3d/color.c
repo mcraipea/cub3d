@@ -6,11 +6,19 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 12:00:28 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/11 10:53:27 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:30:27 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_color			get_pixel(t_image *image, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= image->width || y >= image->height)
+		return ((t_color)0x0);
+	return ((t_color)*(int *)(image->ptr + ((x + y * image->width)
+			* image->bpp)));
+}
 
 static int		ft_lerpi(int first, int second)
 {
@@ -19,7 +27,7 @@ static int		ft_lerpi(int first, int second)
 	return ((int)((double)first + (second - first)));
 }
 
-t_color		clerp(t_color c1, t_color c2)
+t_color			clerp(t_color c1, t_color c2)
 {
 	t_color c;
 
@@ -50,7 +58,7 @@ static int		ft_atoi_parse(char *line, int i)
 t_mlx			*parse_couleur(char *line, t_mlx *data)
 {
 	int			i;
-	
+
 	i = 0;
 	data->sol.rgba.a = 0;
 	if (line[i] == 'F')

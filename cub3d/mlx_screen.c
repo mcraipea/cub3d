@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:22:05 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/06 12:46:12 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:32:50 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_mlx		*mlxdel(t_mlx *mlx)
 
 void		init(t_mlx *data)
 {
-	//if ((data = ft_memalloc(sizeof(t_mlx))) == NULL)
-	//	error("error: malloc doesn't works for data");
-	if ((data->mlx = mlx_init()) == NULL || (data->window = mlx_new_window(data->mlx, data->width_img,
-	 data->height_img, "cub3d")) == NULL || (data->image = new_image(data, data->width_img, data->height_img)) == NULL)
+	if ((data->mlx = mlx_init()) == NULL || (data->window = mlx_new_window
+		(data->mlx, data->width_img, data->height_img, "cub3d")) == NULL ||
+			(data->image = new_image(data, data->width_img, data->height_img))
+				== NULL)
 		error("error: mlx couldn't initialize properly");
 }

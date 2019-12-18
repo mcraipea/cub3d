@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 18:48:40 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 15:22:23 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:26:35 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ static char		*parse2_texture(char *line)
 
 t_mlx			*parse_texture(char *line, t_mlx *data)
 {
-	if (line[0] == 'N')
+	if (line[0] == 'N' && line[1] == 'O')
 		data->texture.no = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == 'O')
 		data->texture.so = parse2_texture(line);
-	else if (line[0] == 'W')
+	else if (line[0] == 'W' && line[1] == 'E')
 		data->texture.we = parse2_texture(line);
-	else if (line[0] == 'E')
+	else if (line[0] == 'E' && line[1] == 'A')
 		data->texture.ea = parse2_texture(line);
 	else if (line[0] == 'S' && line[1] == ' ')
 		data->texture.s = parse2_texture(line);

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 15:15:03 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 19:06:10 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,21 +121,26 @@ typedef struct		s_sprite
 {
 	float			x;
 	float			y;
-	float			spriteX;
-	float			spriteY;
-	int				spriteScreenX;
-	int				drawStartY;
-	int				drawEndY;
-	int				spriteWidth;
-	int				drawStartX;
-	int				drawEndX;
+	float			sprite_x;
+	float			sprite_y;
+	float			invdet;
+	float			trans_x;
+	float			trans_y;
+	int				sp_screen_x;
+	int				draw_s_y;
+	int				draw_e_y;
+	int				sp_width;
+	int				draw_s_x;
+	int				draw_e_x;
 	float			dist;
 	int				sizex;
-	int				spriteHeight;
+	int				sp_height;
 }					t_sprite;
 
 typedef struct		s_mlx
 {
+	int				fd;
+	int				t;
 	void			*mlx;
 	void			*window;
 	int				width_img;
@@ -183,5 +188,9 @@ void				ft_check_if_visible(t_mlx *data, float *z_buffer);
 void				ft_do_sort_sprite(t_mlx *data);
 int					ft_strchr_at_end(char *str, char *find);
 void				draw_column(t_mlx *data, t_ray *ray, int x);
+t_mlx				*remplir_map(t_mlx *data, t_list *list);
+t_mlx				*new_map(int w, int h, t_mlx *data);
+int					init_sprite(t_mlx *data);
+void				*cleanup(t_list *lst, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:13:34 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 15:16:40 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:05:04 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			draw_column(t_mlx *data, t_ray *ray, int x)
 	while (y < end)
 	{
 		tex_y = ((y - data->height_img * 0.5f + ray->height * 0.5f)
-			* ray->texture->height) / ray->height;
+			* data->tex_ea->height) / ray->height;
 		temp = draw_column2(data, ray, temp);
 		image_set_pixel(data->image, x, y,
 			get_pixel(temp, ray->tex_x, tex_y).value);

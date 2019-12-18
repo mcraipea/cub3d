@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:53:45 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 14:01:15 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:14:40 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ int			main(int argc, char **argv)
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		return (error("error\nyour mapfile doesn't exist"));
 	read_map(argv[1], &data);
+	int i = 0;
+	int j;
+	while (i < 6)
+	{
+		j = 0;
+		while (j < 6)
+		{
+			printf("%i", data.map->values[i][j]);
+			j++;
+		}
+		i++;
+		printf("\n");
+	}
 	init(&data);
 	if (load_textures(&data) == 1)
 		return (error("error: couldn't load textures"));

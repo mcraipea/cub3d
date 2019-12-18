@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 18:16:13 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 18:18:37 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:26:13 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,18 @@ static int	remplir_map2(t_mlx *data, char **split, int x, int y)
 	return (1);
 }
 
+static void	ft_correctif(t_mlx *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < data->map->height)
+	{
+		ft_memset(data->map->values[i], 1, 1);
+		i++;
+	}
+}
+
 t_mlx		*remplir_map(t_mlx *data, t_list *list)
 {
 	t_list	*lst;
@@ -84,6 +96,7 @@ t_mlx		*remplir_map(t_mlx *data, t_list *list)
 			return (NULL);
 		while (++x < data->map->width)
 			remplir_map2(data, split, x, y);
+		ft_correctif(data);
 		ft_splitdel(&split);
 		lst = lst->next;
 		y++;

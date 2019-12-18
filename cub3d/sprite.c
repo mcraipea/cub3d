@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:42:22 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/18 19:19:32 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 21:10:14 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ void			ft_do_dist_sprite(t_mlx *data)
 	i = 0;
 	while (i < data->s_max)
 	{
-		data->tsprite[i].sprite_x = data->tsprite[i].x - data->player.x;
-		data->tsprite[i].sprite_y = data->tsprite[i].y - data->player.y;
+		data->tsprite[i].sprite_x = data->tsprite[i].x - data->player.x + 0.5;
+		data->tsprite[i].sprite_y = data->tsprite[i].y - data->player.y + 0.5;
 		data->tsprite[i].dist = sqrt((data->tsprite[i].sprite_x *
 			data->tsprite[i].sprite_x) + (data->tsprite[i].sprite_y *
 				data->tsprite[i].sprite_y));
 		i++;
 	}
-	ft_do_sort_sprite(data);
+	if (data->s_max > 1)
+		ft_do_sort_sprite(data);
 }
 
 static void		ft_sprite2(t_mlx *data, t_sprite *s)
@@ -61,7 +62,7 @@ static void		ft_sprite3(t_mlx *d, int tex_x, int i, int j)
 	int		dr;
 	int		tex_y;
 
-	k = d->tsprite[i].draw_s_y;
+	k = d->tsprite[i].draw_s_y - 1;
 	while (++k < d->tsprite[i].draw_e_y)
 	{
 		dr = k * 256 - d->height_img * 128 +
@@ -79,11 +80,11 @@ void			ft_check_if_visible(t_mlx *d, float *z_buffer)
 	int		j;
 	int		tex_x;
 
-	i = 0;
+	i = -1;
 	while (++i < d->s_max)
 	{
 		ft_sprite2(d, &d->tsprite[i]);
-		j = d->tsprite[i].draw_s_x;
+		j = d->tsprite[i].draw_s_x - 1;
 		while (++j < d->tsprite[i].draw_e_x)
 		{
 			tex_x = (int)(256 * (j - (-d->tsprite[i].sp_width / 2 +

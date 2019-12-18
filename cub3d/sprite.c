@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:42:22 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 20:15:00 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:06:07 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_do_dist_sprite(t_mlx *data)
 	ft_do_sort_sprite(data);
 }
 
-void				ft_check_if_visible(t_mlx *data, float wall_dist)
+void				ft_check_if_visible(t_mlx *data, float *zBuffer)
 {
 	int		i;
 	int		j;
@@ -40,7 +40,6 @@ void				ft_check_if_visible(t_mlx *data, float wall_dist)
 	int		tex_x;
 	int		tex_y;
 
-	(void)wall_dist;
 	i = 0;
 	while (i < data->s_max)
 	{
@@ -71,7 +70,7 @@ void				ft_check_if_visible(t_mlx *data, float wall_dist)
 		while (j < data->tsprite[i].drawEndX)
 		{
 			tex_x = (int)(256 * (j - (- data->tsprite[i].spriteWidth / 2 + data->tsprite[i].spriteScreenX)) * 109 / data->tsprite[i].spriteWidth) / 256;
-			if (transformY > 0 && j > 0 && j < data->width_img)
+			if (transformY > 0 && j > 0 && j < data->width_img && transformY < zBuffer[j])
 			{
 				k = data->tsprite[i].drawStartY;
 				while (k < data->tsprite[i].drawEndY)

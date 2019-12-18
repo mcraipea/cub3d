@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 12:32:48 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 20:01:17 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:04:40 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void		rotate_player(t_player *p, float angle);
 void		move_player(t_player *p, t_map *m, float distance);
 void		translate_player(t_player *p, t_map *m, float distance);
 void		ft_do_dist_sprite(t_mlx *data);
-void		ft_check_if_visible(t_mlx *data, float wall_dist);
+void		ft_check_if_visible(t_mlx *data, float *zBuffer);
 void		ft_do_sort_sprite(t_mlx *data);
 int			ft_strchr_at_end(char *str, char *find);
 

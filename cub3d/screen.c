@@ -6,7 +6,7 @@
 /*   By: mcraipea <mcraipea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 21:24:52 by mcraipea          #+#    #+#             */
-/*   Updated: 2019/12/17 19:00:55 by mcraipea         ###   ########.fr       */
+/*   Updated: 2019/12/18 13:06:56 by mcraipea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ float			cast(t_ray *ray, t_map *map, t_player *player, t_image *tex[], int heigh
 		ray->height = (int)floor(height_img / ray->dist);
 		ray->texture = tex[hit];
 		cast.wallDist = (ray->side ? player->x + ray->dist * ray->x : player->y + ray->dist * ray->y);
-		ray->dist_towall = cast.wallDist;
 		cast.wallDist -= floor(cast.wallDist);
 		ray->tex_x = (int)(cast.wallDist * ray->texture->width);
 		castfloor(ray, &cast);
@@ -126,6 +125,7 @@ void		camera(t_mlx *data)
 	t_ray		ray;
 	float		cam;
 	float		wall_dist;
+	float		zBuffer[data->width_img];
 
 	clear_image(data->image);
 	x = 0;
@@ -135,12 +135,11 @@ void		camera(t_mlx *data)
 		ray.x = data->player.d.x + data->player.p.x * cam;
 		ray.y = data->player.d.y + data->player.p.y * cam;
 		wall_dist = cast(&ray, data->map, &data->player, &data->tex_no, data->height_img);
+		zBuffer[x] = ray.dist;
 		draw_column(data, &ray, x);
-		//ft_do_dist_sprite(data);
-		//ft_check_if_visible(data, ray.dist_towall);
 		x++;
 	}
 	ft_do_dist_sprite(data);
-	ft_check_if_visible(data, ray.dist_towall);
+	ft_check_if_visible(data, zBuffer);
 	mlx_put_image_to_window(data->mlx, data->window, data->image->image, 0, 0);
 }
